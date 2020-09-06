@@ -1,0 +1,108 @@
+
+<body class="home">
+
+  <div class="linha">
+
+    <h2>Controle de manobras</h2>
+    <h4></h4>
+    <h1>Estimated Arrivals</h1>
+</div>
+
+<div id="list">
+    <ul id="navioslist">
+        <lh id="navio"><br>NAVIO</lh>
+        <lh id="imo"><br>IMO</lh>
+        <lh id="hora"><br>CHEGADA</lh>
+        <lh id="agencia"><br>PORTO</lh> 
+
+    </ul>
+</div>
+
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script>
+ axios.get('http://localhost:3002/apimarine')
+    .then(response => criaListaDinamica(response.data))
+    .catch(error => console.log(error))
+  const criaListaDinamica = ( navios ) => {
+  const ulNavios = document.getElementById('navioslist')
+
+    navios.map(navio => {
+      const listaNavio = document.createElement('li')
+     
+      var coordenadas = `{"lat":${navio.LAT},"lng":${navio.LON},"imo":${navio.IMO}}`      
+      listaNavio.setAttribute("id", coordenadas)
+      listaNavio.setAttribute("classe", "lihover")
+
+            const spanNavioName = document.createElement('span')
+              spanNavioName.setAttribute("id",coordenadas)
+              spanNavioName.setAttribute("onclick","location.href = 'http://localhost:3002/maps';")
+              spanNavioName.innerHTML = `${navio.SHIPNAME}`  // navio name list
+                      listaNavio.appendChild(spanNavioName)
+                        
+                            const spanNavioImo = document.createElement('span')  
+                              spanNavioImo.setAttribute("id",coordenadas)
+                              spanNavioImo.setAttribute("onclick","location.href = 'http://localhost:3002/maps';")
+                              spanNavioImo.innerHTML = `${navio.IMO}`         // navio imo list
+                              listaNavio.appendChild(spanNavioImo)
+                                                                          
+                                                          //////////CHECARRR/////////
+                                  const spanNavioChegada = document.createElement('span')  
+                                    spanNavioChegada.setAttribute("id",coordenadas)
+                                    spanNavioChegada.setAttribute("onclick","location.href = 'http://localhost:3002/maps';")
+                                    const editChegada = navio.ETA_CALC
+                                    const editado = editChegada.replace(editChegada.substring(10, 11), " ");
+
+                                    spanNavioChegada.innerHTML = `${editado}`     // navio tempo de chegada list    
+                                    listaNavio.appendChild(spanNavioChegada)
+                                                                                    
+                                        const spanNavioAgencia = document.createElement('span')  
+                                          spanNavioAgencia.setAttribute("id",coordenadas)
+                                          spanNavioAgencia.setAttribute("onclick","location.href = 'http://localhost:3002/maps';")
+                                          spanNavioAgencia.innerHTML = `${navio.DESTINATION}`     // navio ancia list    
+                                          listaNavio.appendChild(spanNavioAgencia)
+
+
+                                            const spanNavioDescri = document.createElement('div')  
+                                              spanNavioDescri.setAttribute("class","content")
+                                              listaNavio.setAttribute("id", coordenadas)
+                                              spanNavioDescri.innerHTML = `<p> <h3>${navio.SHIPNAME} </h3> <b>IMO:</b> ${navio.IMO}<br> <b>Velocidade:</b> ${navio.AVG_SPEED}kn <br> <b>Destino:</b> ${navio.DESTINATION} <br> <b>Tipo:</b> ${navio.TYPE_NAME} <br> <b>Ano:</b> ${navio.YEAR_BUILT} <br> <b>Distancia: </b>${navio.DISTANCE_TO_GO}km <br> <b>LON: </b>${navio.LON} <br> <b>LAT: </b>${navio.LAT} </p> ` // navio tempo de chegada list    
+                                              listaNavio.appendChild(spanNavioDescri )
+
+                    
+                    
+      ulNavios.appendChild(listaNavio)
+
+
+  
+         
+    })
+  }
+
+  
+var el = document.getElementById('navioslist');
+el.addEventListener('click', function(e) {
+    console.log(e.target.id);
+
+});
+
+
+console.oldLog = console.log;
+console.log = function(value)
+{
+    console.oldLog(value);
+    window.$log = value;
+    var coordenadas = value;
+
+    sessionStorage.setItem('localizacao', JSON.stringify(coordenadas));
+};
+
+    
+</script>
+
+
+</html>
+

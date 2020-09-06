@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Manobras</title>
+  <link rel="stylesheet" href="/css/styles.css">  
+    <script src="/js/scripts.js"></script>
+  </head>    
+   
+   <header>
+     <a href="/" class="logo">Controle de Manobras</a>
+     <ul>
+       <li><a href="/">Controle de Manobras</a></li>
+        <li><a href="/mapageral">Mapa Geral</a></li>
+       <li><a href="/sobre">Sobre</a></li>
+       <li><a href="/team">Team</a></li>
+     </ul>
+   </header>
+   <section class = "banner"> </section>
+   <script type="text/javascript"> // efeito rolamento da pagina
+    window.addEventListener("scroll",function(){
+      var header = document.querySelector("header");
+      header.classList.toggle("sticky",window.scrollY > 0);
+    })
+   </script>
+  
+      
+    {{{body}}}
+    
+
+</body>
+
+    
+</html>
