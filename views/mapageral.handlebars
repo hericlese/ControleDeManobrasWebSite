@@ -3,10 +3,6 @@
     var header = document.querySelector("header"); //fixar efeito barra de menu
       header.classList.toggle("sticky",window.scrollY = 1);
   
-  var coordenadast = JSON.parse(sessionStorage.getItem('localizacao'));
-
-    coord = JSON.parse(coordenadast);
-
 </script>
 	
 <script>
@@ -71,13 +67,7 @@ var infowindow = new google.maps.InfoWindow({
 
 infowindow.open(map,marker);
 
-
 }
-
-
-
-
-
 
 </script>
 
@@ -90,15 +80,11 @@ infowindow.open(map,marker);
 	<style> 
 		#map {      
     position: absolute;
-		margin-top:660px;
-		height: 545px;
-		width: 100%;
-    
+		height: 100% !important;;
+		width: 100% !important;;
     }
 
-  body{
-     height: 100%;
-  }
+    }
      #titulomap{
       margin-bottom: -15px;
       text-align: center;

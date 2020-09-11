@@ -1,0 +1,74 @@
+
+<body class="home">
+
+  <div class="linha">
+    <h1 id="h2home">Usuarios</h1>
+</div>
+
+<div id="list">
+    <ul id="usuariolist">
+        <lh id="nomegerencia"><br>Nome</lh>
+        <lh id="emailgerencia"><br>Email</lh>
+    </ul>
+</div>
+
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script>
+ axios.get('http://localhost:3002/gerenciausuarios')
+    .then(response => criaListaDinamica(response.data))
+    .catch(error => console.log(error))
+  const criaListaDinamica = ( usuarios ) => {
+  const ulUsuarios = document.getElementById('usuariolist')
+
+    usuarios.map(usuario => {
+      const listaUsuario = document.createElement('li')
+     
+      var descricaousuario = `{"id": "${usuario.id}","name": "${usuario.name}", "email": "${usuario.email}"}`    
+      listaUsuario.setAttribute("id", descricaousuario)
+      listaUsuario.setAttribute("classe", "lihover")
+
+            const spanUserName = document.createElement('span')
+              spanUserName.setAttribute("id",descricaousuario)
+              spanUserName.setAttribute("onclick","location.href = 'http://localhost:3002/gerenciar/alterar';")
+              spanUserName.innerHTML = `${usuario.name}`  
+                      listaUsuario.appendChild(spanUserName)
+                        
+                            const spanUsuarioEmail = document.createElement('span')  
+                              spanUsuarioEmail.setAttribute("id",descricaousuario)
+                              spanUsuarioEmail.setAttribute("onclick","location.href = 'http://localhost:3002/gerenciar/alterar';")
+                              spanUsuarioEmail.innerHTML = `${usuario.email}`         
+                              listaUsuario.appendChild(spanUsuarioEmail)
+                                                                          
+                    
+      ulUsuarios.appendChild(listaUsuario)  
+    })
+  }
+
+var el = document.getElementById('usuariolist');
+el.addEventListener('click', function(e) {
+    console.log(e.target.id);
+
+});
+
+console.oldLog = console.log;
+console.log = function(value)
+{
+    console.oldLog(value);
+    window.$log = value;
+
+    var descricaousuario = value;
+   
+
+    sessionStorage.setItem('alteraruser',descricaousuario);
+  
+};
+
+</script>
+
+
+</html>
+

@@ -1,0 +1,67 @@
+<body>
+<script>
+
+   
+</script>
+
+<main>                                                                                                                     <!-- MAIN Area de conteudo principal do site-->                                                                                                                   <!-- MAIN Area de conteudo principal do site-->
+        <div id="registrar" class="row justify-content-center align-items-center" >
+            <div class="container-registrousuario">  
+                     <div id="registro-row" class="row justify-content-center align-items-center" >                 
+                            <form id="registrar-form" name="registrar" class="form" action="/atualizarusuario" onsubmit="return senhaForm()" method="PUT">
+                                <h2 class="text-center text-info">Alterar Usuário</h2>
+                            <!------------------------------------------------------------------------>
+                                <input type="hidden" id="id" name="id" >
+                                <div class="form-group">
+                                    <label for="name" class="text-info" >Nome Completo:</label>
+                                    <input type="text" name="name" id="name" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="text-info">Email:</label>
+                                    <input type="email" name="email" id="email" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <label  class="text-info">Senha:</label>
+                                    <input type="password" name="password" id="passwordnovo" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="senha" class="text-info">Senha novamente:</label>
+                                    <input type="password" name="password2" id="password2" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+ 
+<script>
+
+  var userjson = sessionStorage.getItem('alteraruser');
+  user = JSON.parse(userjson);
+  
+  name = user.name;
+  email = user.email;
+  id = user.id;
+  
+    let namenovo = document.getElementById('name');
+    namenovo.setAttribute("value", `${name}`)
+      let emailnovo = document.getElementById('email');
+    emailnovo.setAttribute("value", `${email}`)
+   
+   let idnovo = document.getElementById('id');
+   idnovo.setAttribute("value", `${id}`)
+
+</script>
+
+</html>
+
+
+
+</html>
+

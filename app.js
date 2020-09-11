@@ -1,12 +1,63 @@
 const express = require('express');
 const exphbs =  require('express-handlebars');
 const path=  require('path'); // auxiliar em localizar os diretorios
-
-
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const e = require('express');
 
 const app = express();
 const port = 3002;
 
+
+//conexão com mysql
+const con = mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password: '',
+    database: 'marinedatabase'
+    
+    });
+
+
+/// CRIPTOGRAFIA
+
+//password 
+const getRandomString = function(length){
+    return crypto.randomBytes(Math.ceil(length/2))
+        .toString('hex') // convert em hexadecimal
+        .slice(0,length); 
+};
+
+const sha512 = function(password,salt){
+      let   hash = crypto.createHmac('sha512',salt); 
+      hash.update(password);
+      let value = hash.digest('hex');
+      return {
+          salt:salt,
+          passwordHash:value
+      };
+};
+
+function saltHashPassword(userPassword){
+    let salt = getRandomString(16); // Gera string aleatoria de 16 caracters para Salt
+    let passwordData= sha512(userPassword,salt); // validação para login
+    return passwordData;
+}
+
+function checkHashPassword(userPassword,salt)  // validação para login
+{
+    let passwordData = sha512(userPassword,salt);
+    return passwordData;
+
+}
+
+
+
+// ROTAS
+
+app.use(bodyParser.json()); //Aceitar parametros Json
+app.use(bodyParser.urlencoded({extended: true})); //aceitar parametros de URL codificada
 
 // static folder css
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,15 +89,15 @@ app.get('/', (req , res) => {
 });
 
 app.get('/sobre', (req , res) => {
-    res.render('sobre');                 //determinando a rota vew pagina principal
+    res.render('sobre');                 //determinando a rota vew pagina sobre
 });
 app.get('/maps', (req , res) => {
-    res.render('maps');                 //determinando a rota vew pagina principal
+    res.render('maps');                 //determinando a rota vew pagina maps
    
 });
 
 app.get('/team', (req , res) => {
-    res.render('team');                 //determinando a rota vew pagina principal
+    res.render('team');                 //determinando a rota vew pagina team
          
 });
 
@@ -62,3 +113,190 @@ app.get('/apimarine', (req , res) => {
 });
 
 
+app.get('/login', (req , res) => {
+    res.render('login');                 //determinando a rota vew pagina login
+});
+
+app.get('/cadastrar', (req , res) => {
+    res.render('cadastrar');                 //determinando a rota vew pagina cadastar
+});
+
+app.get('/gerenciar', (req , res) => {
+    res.render('gerenciar');                 //determinando a rota vew pagina login
+});
+
+app.get('/gerenciar/alterar', (req , res) => {
+    res.render('gerenciaalterar');                 //determinando a rota vew pagina login
+});
+
+
+
+
+
+// registrando profissional
+app.post('/cadastrar/',(req,res,next)=>{
+    
+    let post_data = req.body; //pegando parametros do POST
+
+    let plaint_password = post_data.password; // pegando parametros do form post
+
+    let hash_data = saltHashPassword(plaint_password);
+
+    let password = hash_data.passwordHash; // pegando valor hash
+
+    let salt = hash_data.salt; //get salt
+
+    let name = post_data.name;
+    let email = post_data.email;
+
+    con.query('SELECT * FROM usuario_pratico where email=?',[email], function(err,result,fields){ //procurando se existe email na tabela profissionais
+        con.on('error',function(err){
+            console.log('[MySQL ERROR]',err);
+        });
+
+        if(result && result.length)
+            res.json('Usuario Existente!!!'); //retornando caso tenha
+        else        
+        {                    // caso nao tenha em nenhuma das 2 tableas crie um novo usuario profissional       
+                    con.query('INSERT INTO `usuario_pratico`(`name`, `email`, `encrypted_password`, `salt`, `created_at`, `updated_at`) VALUES (?,?,?,?,NOW(),NOW())',[name,email,password,salt],
+                    function(err,result,fields){
+                        con.on('error',function(err){
+                            console.log('[MySQL ERROR',err);
+                            res.json('Erro ao Registrar:',err );
+                            
+                        });
+
+                        res.json('Registrado com sucesso!');
+                    })   
+                }
+                });
+        
+    });
+
+
+
+
+//Login
+app.post('/login/',(req,res,next)=>{
+    let post_data = req.body;
+
+    //extrai senha e email para o request
+    let user_password = post_data.password;
+    let email = post_data.email;
+
+    con.query('SELECT * FROM usuario_pratico where email=?',[email], function(err,result,fields){
+        con.on('error',function(err){
+            console.log('[MySQL ERROR]',err);
+        });
+       
+
+        if(result && result.length) //caso encontre email colete a senha e  o email para comparação ao banco na tablea usuario_profissional
+        {
+            
+            let salt = result[0].salt;  //pega resultado salt caso seja um conta existente
+            let encrypted_password = result[0].encrypted_password;
+            // hash passaword do login co salt no banco de dados
+            let hashed_password = checkHashPassword(user_password,salt).passwordHash;
+
+            if(encrypted_password == hashed_password)
+
+                res.render('home');
+               // res.end(JSON.stringify(result[0]),console.log(`Usuario logou ${email}`),) // se senha for verdadeira , retorna todos informações do usuario
+                    
+
+             else
+                    res.end(JSON.stringify('Senha digitada inválida'));    
+
+             }
+        else //caso não encontre em nehuma tabela, usuario nao exite
+        {
+            res.json('Usuario Não Existente!!!');
+        }
+    });
+
+})
+
+
+app.get('/gerenciausuarios', (req , res) => {
+
+    con.query('SELECT * FROM usuario_pratico',function(error,result,fields){
+        con.on('error',function(err){
+            console.log('[MYSQL]ERROR',err);
+        });
+            if(result && result.length)
+            {
+                res.end(JSON.stringify(result,['id','name','email']));
+            }
+            else
+            {
+                res.end(JSON.stringify('Sem historico de cargos'));
+            }
+    });
+    
+})
+
+//alterar user
+app.put('/atualizarusuario/',(req,res,next)=>{
+
+    let post_data = req.body; //pegando parametros do POST
+
+    let plaint_password = post_data.password; // pegando parametros do form post
+
+    let hash_data = saltHashPassword(plaint_password);
+
+    let password = hash_data.passwordHash; // pegando valor hash
+
+    let salt = hash_data.salt; //get salt
+
+    let name = post_data.name;
+    let email = post_data.email;
+    let id = post_data.id;
+
+           
+    con.query('SELECT * FROM usuario_pratico where id=?',[id], function(err,result,fields){
+        con.on('error',function(err){
+            console.log('[MySQL ERROR]',err);
+        });
+
+
+            if(result && result.length)
+            {
+                
+          //      UPDATE `usuario_pratico` SET `name` = 'Hericles Gustavo Araujo de Melo', `email` = 'teste@gmail.com' WHERE `usuario_pratico`.`id` = 6;
+
+           query = "UPDATE `usuario_pratico` SET `name` = " +`"${name}" , `+ " `email` =  " +`"${email}" , `+ " `encrypted_password` =  " +`"${password}"  , `+ " `salt` =  " +`"${salt}" `+ " WHERE `usuario_pratico`.`id` = " +id;
+            
+           
+                con.query(query,function(err,result,fields){
+                    con.on('error',function(err){
+                        console.log('[MYSQL]ERROR',err);
+                    
+                    });
+                            if(result)
+                            {
+
+                                   // res.end(JSON.stringify(result));
+                                   res.render('home');
+                                    
+                            }
+                            else
+                            { 
+                            
+                                res.end(JSON.stringify('Erro ao atualizar valor'));
+                                console.log(query)
+                        }  
+                });
+
+                  
+            }
+            else        
+            {   
+                res.json('erro ao atualizar');
+            } 
+            
+            
+        });   
+
+        });
+
+    

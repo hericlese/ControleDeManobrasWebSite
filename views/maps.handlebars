@@ -1,9 +1,9 @@
 
 <script type="text/javascript">
-    var header = document.querySelector("header"); //fixar efeito barra de menu
+    let header = document.querySelector("header"); //fixar efeito barra de menu
       header.classList.toggle("sticky",window.scrollY = 1);
   
-  var coordenadast = JSON.parse(sessionStorage.getItem('localizacao'));
+  let coordenadast = JSON.parse(sessionStorage.getItem('localizacao'));
 
     coord = JSON.parse(coordenadast);
     console.log(coord);
@@ -14,13 +14,13 @@
 <script>
 function iniciarMap(){
 
-  var map = new google.maps.Map(document.getElementById('map'),{
+  let map = new google.maps.Map(document.getElementById('map'),{
     zoom: 10,
     center: coord
   });
 	
   //marcador do mapa
-  var marker = new google.maps.Marker({
+  let marker = new google.maps.Marker({
     position: coord,
     map: map,
 	icon:{
@@ -46,7 +46,7 @@ axios.get('http://localhost:3002/apimarine')    ///colentando array navios
 
 
   //menssagem do marcador
-    var infowindow = new google.maps.InfoWindow({
+    let infowindow = new google.maps.InfoWindow({
       content:`<div  id="titulomap"><b>${lista[i].SHIPNAME}</b></div><br><b>IMO:</b> ${lista[i].IMO} <br> <b>Velocidade:</b> ${lista[i].AVG_SPEED}kn <br> <b>Destino:</b> ${lista[i].DESTINATION}<br> <b>Tipo:</b> ${lista[i].TYPE_NAME} <br> <b>Ano:</b> ${lista[i].YEAR_BUILT}<br><b>Distancia: </b>${lista[i].DISTANCE_TO_GO}KM`
         });
 infowindow.open(map,marker);
@@ -63,17 +63,13 @@ infowindow.open(map,marker);
 	<div id="map"></div>
  
 		<style> 
-		#map {      
+			#map {      
     position: absolute;
-		margin-top:660px;
-		height: 545px;
-		width: 100%;
-    
+		height: 100% !important;
+		width: 100% !important;
     }
 
-  body{
-     height: 100%;
-  }
+    }
      #titulomap{
       margin-bottom: -15px;
       text-align: center;
