@@ -229,27 +229,23 @@ app.get('/gerenciausuarios', (req , res) => {
             }
             else
             {
-                res.end(JSON.stringify('Sem historico de cargos'));
+                res.end(JSON.stringify('Sem historico de usuarios'));
             }
     });
     
 })
 
 //alterar user
-app.put('/atualizarusuario/',(req,res,next)=>{
+app.get('/atualizarusuario/',(req,res,next)=>{
 
     let post_data = req.body; //pegando parametros do POST
-
     let plaint_password = post_data.password; // pegando parametros do form post
-
     let hash_data = saltHashPassword(plaint_password);
-
     let password = hash_data.passwordHash; // pegando valor hash
-
     let salt = hash_data.salt; //get salt
 
+
     let name = post_data.name;
-    let email = post_data.email;
     let id = post_data.id;
 
            
@@ -264,7 +260,7 @@ app.put('/atualizarusuario/',(req,res,next)=>{
                 
           //      UPDATE `usuario_pratico` SET `name` = 'Hericles Gustavo Araujo de Melo', `email` = 'teste@gmail.com' WHERE `usuario_pratico`.`id` = 6;
 
-           query = "UPDATE `usuario_pratico` SET `name` = " +`"${name}" , `+ " `email` =  " +`"${email}" , `+ " `encrypted_password` =  " +`"${password}"  , `+ " `salt` =  " +`"${salt}" `+ " WHERE `usuario_pratico`.`id` = " +id;
+           query = "UPDATE `usuario_pratico` SET `name` = " +`"${name}" , `+ " `encrypted_password` =  " +`"${password}"  , `+ " `salt` =  " +`"${salt}" , ` +  "`updated_at` = NOW() " + " WHERE `usuario_pratico`.`id` = " +id;
             
            
                 con.query(query,function(err,result,fields){
@@ -274,17 +270,16 @@ app.put('/atualizarusuario/',(req,res,next)=>{
                     });
                             if(result)
                             {
-
                                    // res.end(JSON.stringify(result));
                                    res.render('home');
-                                    
+                                    console.log(`Query com erro ${query}`)
                             }
                             else
                             { 
                             
                                 res.end(JSON.stringify('Erro ao atualizar valor'));
-                                console.log(query)
-                        }  
+                                console.log(`Query com erro ${query}`)
+                         }  
                 });
 
                   
@@ -293,7 +288,6 @@ app.put('/atualizarusuario/',(req,res,next)=>{
             {   
                 res.json('erro ao atualizar');
             } 
-            
             
         });   
 

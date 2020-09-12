@@ -8,9 +8,10 @@
         <div id="registrar" class="row justify-content-center align-items-center" >
             <div class="container-registrousuario">  
                      <div id="registro-row" class="row justify-content-center align-items-center" >                 
-                            <form id="registrar-form" name="registrar" class="form" action="/atualizarusuario" onsubmit="return senhaForm()" method="PUT">
+                            <form id="registrar-form" name="registrar" class="form" action="/atualizarusuario" onsubmit="return senhaForm()" method="GET">
                                 <h2 class="text-center text-info">Alterar Usuário</h2>
                             <!------------------------------------------------------------------------>
+
                                 <input type="hidden" id="id" name="id" >
                                 <div class="form-group">
                                     <label for="name" class="text-info" >Nome Completo:</label>
@@ -18,7 +19,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="text-info">Email:</label>
-                                    <input type="email" name="email" id="email" class="form-control" >
+                                    <input type="email" name="email" id="email" class="form-control" ></label>
                                 </div>
                                 <div class="form-group">
                                     <label  class="text-info">Senha:</label>
@@ -51,6 +52,7 @@
   
     let namenovo = document.getElementById('name');
     namenovo.setAttribute("value", `${name}`)
+
       let emailnovo = document.getElementById('email');
     emailnovo.setAttribute("value", `${email}`)
    
@@ -58,10 +60,6 @@
    idnovo.setAttribute("value", `${id}`)
 
 </script>
-
-</html>
-
-
 
 </html>
 
