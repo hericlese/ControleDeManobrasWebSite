@@ -5,7 +5,7 @@
                 <div id="login-row" >
                     <div id="login-column" >
                         <div id="login-box" >
-                            <form id="login-form" class="form" action="" method="post">
+                            <form id="login-form" class="form" >
                                 <h2 class="text-center text-info" >Login</h2>
                                 <div class="form-group">
                                     <label for="username" class="text-info">Usuário:</label><br>
@@ -29,6 +29,41 @@
         </div>
     </main>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+ <script>
+     
+     // Evento que é executado ao clicar no botão de enviar
+    document.getElementById('btn').onclick = function(e) {
+    e.preventDefault();
+
+        var user = document.getElementById('username');
+        var senha = document.getElementById('password');
+
+    axios.post("http://localhost:3002/loginauth",{
+        email: `${user.value}`,
+        password: `${senha.value}`
+    })
+       
+    .then(resp => {
+        const resposta = resp.data;
+        id = resposta[0].id
+        name = resposta[0].name
+        email = resposta[0].email
+        
+        let auth = `{"id":"${resposta[0].id}","name":"${resposta[0].name}","email":"${resposta[0].email}"}`
+
+            sessionStorage.setItem('session',auth);
+
+        window.location.replace("http://localhost:3002/");
+
+          })
+
+        .catch(error => console.log(error))  
+
+    }
+
+
+
+ </script>
 
 </html>
-

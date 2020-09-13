@@ -52,6 +52,7 @@ header ul{
     align-items: center;
     margin-right: 5%;
     justify-content: flex-start;
+    
 }
 
 header ul li{
@@ -59,6 +60,8 @@ header ul li{
     position: relative;
     list-style: none;
     justify-content: flex-start;
+    margin: 2px;
+  
     
 
 }
@@ -66,21 +69,39 @@ header ul li{
 header ul li a{
 
     position: relative;
-    margin: 0 15px;
+    margin: 10px 15px;
     text-decoration: none;
     color: #fff;
     letter-spacing: 2px;
     font-weight: 500px;
     transition: 0.6s;
     font-weight: bolder;
+
 }
 
 
 
-header ul li a img{
-    width: 20px;
-    background-color: #fff;
-  
+header ul li a {
+    text-decoration: none;
+    
+}
+
+
+header ul li #perfilbtn{
+
+    font-size: 14px;  
+    
+}
+
+
+header ul li img{
+   
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    margin-top: -20px;
+    margin-right: -25px;
+
 }
 
 header.sticky .logo,
@@ -89,13 +110,15 @@ header.sticky ul li a{
     color: #000;
 }
 
-header ul li:hover{
+header ul #hovermenu:hover {
     background: #4A7995;
     box-shadow: 0 0 0 4px #333;
     box-shadow: 0 0 0 6px #4A7995;
     opacity: 0.81;
     
 }
+
+
 
 
 body{       

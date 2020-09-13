@@ -1,9 +1,22 @@
 <body>
-<script>
+<script type="text/javascript">
+    var header = document.querySelector("header"); //fixar efeito barra de menu
+      header.classList.toggle("sticky",window.scrollY = 1);
+  
+//sessionStorage.clear
 
-   
+if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
+  window.location.replace("http://localhost:3002/login");
+}
+  let  auth = JSON.parse(sessionStorage.getItem('session'))
+
+      name = auth.name;
+      email = auth.email;
+      id = auth.id;
+
+     {{{body}}}
+
 </script>
-
 <main>                                                                                                                     <!-- MAIN Area de conteudo principal do site-->                                                                                                                   <!-- MAIN Area de conteudo principal do site-->
         <div id="registrar" class="row justify-content-center align-items-center" >
             <div class="container-registrousuario">  
@@ -13,7 +26,7 @@
                             <!------------------------------------------------------------------------>
                                 <input type="hidden" id="id" name="id" >
                                 <div class="form-group">
-                                    <label for="name" class="text-info" >Nome Completo:</label>
+                                    <label for="name" class="text-info" >Novo Nome Completo:</label>
                                     <input type="text" name="name" id="name" class="form-control">
                                 </div>
                                 <div class="form-group">
@@ -21,7 +34,7 @@
                                     <input type="email" name="email" id="email" class="form-control" >
                                 </div>
                                 <div class="form-group">
-                                    <label  class="text-info">Senha:</label>
+                                    <label  class="text-info">Nova Senha:</label>
                                     <input type="password" name="password" id="passwordnovo" class="form-control">
                                 </div>
                                 <div class="form-group">
@@ -41,23 +54,6 @@
 </body>
  
 <script>
-
-  var userjson = sessionStorage.getItem('alteraruser');
-  user = JSON.parse(userjson);
-  
-  name = user.name;
-  email = user.email;
-  id = user.id;
-  
-    let namenovo = document.getElementById('name');
-    namenovo.setAttribute("value", `${name}`)
-      let emailnovo = document.getElementById('email');
-    emailnovo.setAttribute("value", `${email}`)
-    emailnovo.setAttribute("readonly", "true")
- 
-   
-   let idnovo = document.getElementById('id');
-   idnovo.setAttribute("value", `${id}`)
 
 </script>
 

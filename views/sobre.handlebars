@@ -1,3 +1,19 @@
+<script>
+//sessionStorage.clear
+
+if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
+  window.location.replace("http://localhost:3002/login");
+}
+  let  auth = JSON.parse(sessionStorage.getItem('session'))
+
+      name = auth.name;
+      email = auth.email;
+      id = auth.id;
+
+     {{{body}}}
+
+</script>
+
 <body class="home">
 
   <div class="linha">

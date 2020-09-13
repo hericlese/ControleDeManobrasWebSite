@@ -1,19 +1,22 @@
 
 
 <script>
-let session = sessionStorage.getItem('session');
-sessionuser = JSON.parse(sessionuser);  
-sessionlogin = JSON.stringify(sessionuser.login);
 
+//sessionStorage.clear
 
-if(sessionlogin == "logado"){
-console.log("login")
-}else{
-  console.log("nologin")
-  window.location.href= 'http://localhost:3002/login';
+if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
+  window.location.replace("http://localhost:3002/login");
 }
-  
+  let  auth = JSON.parse(sessionStorage.getItem('session'))
+
+      name = auth.name;
+      email = auth.email;
+      id = auth.id;
+
+     {{{body}}}
+
 </script>
+
 <body class="home">
 
   <div class="linha">
@@ -32,9 +35,8 @@ console.log("login")
     </ul>
 </div>
 
-
-
 </body>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script>
 

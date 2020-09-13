@@ -3,28 +3,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Controle de Manobras</title>
+    <title>Praticagem de Manaus</title>
   <link rel="stylesheet" href="/css/styles.css">  
     <script src="/js/scripts.js"></script>
   </head>    
    
    <header class="container">
-     <a href="/" class="logo">Controle de Manobras</a>
+     <a href="/" class="logo">Praticagem de Manaus</a>
      <ul>
-       <li><a href="/">Controle de Manobras</a></li>
-        <li><a href="/mapageral">Mapa Geral</a></li>
-       <li><a href="/sobre">Sobre</a></li>
-       <li><a href="/team">Team</a></li>
-       <li><a href="/login"><img src="/img/perfi.png" alt="Login"></a></li>
+       <li id="hovermenu"><a href="/">Controle de Manobras</a></li>
+        <li id="hovermenu"><a href="/mapageral">Mapa Geral</a></li>
+       <li id="hovermenu"><a href="/team">Team</a></li>
+       <li><img href="/perfil" src="/img/perfil.png" alt="Login"></li>
+       <li id="hovermenuperfil"><a id="perfilbtn" href="/perfil" >LOGIN</a></li>
        
      </ul>
    </header>
    <section class = "banner"> </section>
+
    <script type="text/javascript"> // efeito rolamento da pagina
     window.addEventListener("scroll",function(){
       var header = document.querySelector("header");
       header.classList.toggle("sticky",window.scrollY > 0);
     })
+
+    //sessionStorage.clear();
+
+  if(JSON.parse(sessionStorage.getItem('session')) != undefined ) {
+    let  auth = JSON.parse(sessionStorage.getItem('session'))
+
+        name = JSON.stringify(auth.name);
+
+    btnperfil = document.getElementById('perfilbtn')
+
+    let string = name;
+    let primeironame = string.split(" ");
+
+    document.getElementById("perfilbtn").innerHTML= `${primeironame[0]}!"`
+   
+    console.log(name)
+  }
    </script>
   
       

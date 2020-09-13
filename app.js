@@ -112,7 +112,6 @@ app.get('/apimarine', (req , res) => {
     res.send(apiteste);                 //enviando dados da API
 });
 
-
 app.get('/login', (req , res) => {
     res.render('login');                 //determinando a rota vew pagina login
 });
@@ -129,6 +128,9 @@ app.get('/gerenciar/alterar', (req , res) => {
     res.render('gerenciaalterar');                 //determinando a rota vew pagina login
 });
 
+app.get('/perfil', (req , res) => {
+    res.render('perfil');                 //determinando a rota vew pagina login
+});
 
 
 
@@ -162,7 +164,9 @@ app.post('/cadastrar/',(req,res,next)=>{
                     function(err,result,fields){
                         con.on('error',function(err){
                             console.log('[MySQL ERROR',err);
-                            res.json('Erro ao Registrar:',err );
+
+                            res.render('home');
+                            //res.json('Erro ao Registrar:',err );
                             
                         });
 
@@ -177,7 +181,7 @@ app.post('/cadastrar/',(req,res,next)=>{
 
 
 //Login
-app.post('/login/',(req,res,next)=>{
+app.post('/loginauth/',(req,res,next)=>{
     let post_data = req.body;
 
     //extrai senha e email para o request
@@ -188,7 +192,7 @@ app.post('/login/',(req,res,next)=>{
         con.on('error',function(err){
             console.log('[MySQL ERROR]',err);
         });
-       
+
 
         if(result && result.length) //caso encontre email colete a senha e  o email para comparação ao banco na tablea usuario_profissional
         {
@@ -198,12 +202,16 @@ app.post('/login/',(req,res,next)=>{
             // hash passaword do login co salt no banco de dados
             let hashed_password = checkHashPassword(user_password,salt).passwordHash;
 
-            if(encrypted_password == hashed_password)
+            if(encrypted_password == hashed_password){
 
-                res.render('home');
+               
+                console.log(JSON.stringify(result,['id','name','email']))
+                res.end(JSON.stringify(result,['id','name','email']));
+              
+               // res.render('home');
                // res.end(JSON.stringify(result[0]),console.log(`Usuario logou ${email}`),) // se senha for verdadeira , retorna todos informações do usuario
                     
-
+                }
              else
                     res.end(JSON.stringify('Senha digitada inválida'));    
 
@@ -236,17 +244,21 @@ app.get('/gerenciausuarios', (req , res) => {
 })
 
 //alterar user
-app.get('/atualizarusuario/',(req,res,next)=>{
+app.post('/atualizar',(req,res,next)=>{
 
     let post_data = req.body; //pegando parametros do POST
-    let plaint_password = post_data.password; // pegando parametros do form post
-    let hash_data = saltHashPassword(plaint_password);
-    let password = hash_data.passwordHash; // pegando valor hash
-    let salt = hash_data.salt; //get salt
 
+    let plaint_password = post_data.password; // pegando parametros do form post
+
+    let hash_data = saltHashPassword(plaint_password);
+
+    let password = hash_data.passwordHash; // pegando valor hash
+
+    let salt = hash_data.salt; //get salt
 
     let name = post_data.name;
     let id = post_data.id;
+    let email = post_data.email;
 
            
     con.query('SELECT * FROM usuario_pratico where id=?',[id], function(err,result,fields){
@@ -257,10 +269,11 @@ app.get('/atualizarusuario/',(req,res,next)=>{
 
             if(result && result.length)
             {
-                
+          
+           
           //      UPDATE `usuario_pratico` SET `name` = 'Hericles Gustavo Araujo de Melo', `email` = 'teste@gmail.com' WHERE `usuario_pratico`.`id` = 6;
 
-           query = "UPDATE `usuario_pratico` SET `name` = " +`"${name}" , `+ " `encrypted_password` =  " +`"${password}"  , `+ " `salt` =  " +`"${salt}" , ` +  "`updated_at` = NOW() " + " WHERE `usuario_pratico`.`id` = " +id;
+          query = "UPDATE `usuario_pratico` SET `name` = " +`"${name}" , `+ " `encrypted_password` =  " +`"${password}"  , `+ " `salt` =  " +`"${salt}" , ` +  "`updated_at` = NOW() " + " WHERE `usuario_pratico`.`id` = " +id;
             
            
                 con.query(query,function(err,result,fields){
@@ -270,16 +283,17 @@ app.get('/atualizarusuario/',(req,res,next)=>{
                     });
                             if(result)
                             {
-                                   // res.end(JSON.stringify(result));
+
+                                    //res.end(JSON.stringify(result));
                                    res.render('home');
-                                    console.log(`Query com erro ${query}`)
+                                    
                             }
                             else
                             { 
                             
                                 res.end(JSON.stringify('Erro ao atualizar valor'));
-                                console.log(`Query com erro ${query}`)
-                         }  
+                                console.log(query)
+                        }  
                 });
 
                   
@@ -288,6 +302,7 @@ app.get('/atualizarusuario/',(req,res,next)=>{
             {   
                 res.json('erro ao atualizar');
             } 
+            
             
         });   
 
