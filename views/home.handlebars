@@ -18,24 +18,31 @@ if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
 </script>
 
 <body class="home">
+<div  class="container">
 
-  <div class="linha">
+<div class="row" id="">
     <h2 id="h2home">Controle de manobras</h2>
-    <h4 id="h4home">  </h4>
+
     <h1 id="h1home">Estimated Arrivals</h1>
 </div>
 
-<div id="list">
+<div id="list" class="row">
+
     <ul id="navioslist">
-        <lh id="navio"><br>NAVIO</lh>
-        <lh id="imo"><br>IMO</lh>
-        <lh id="hora"><br>CHEGADA</lh>
-        <lh id="agencia"><br>PORTO</lh> 
+      
+      <div id="tab" >
+        <div class="col s1" id="navio">NAVIO</div>
+        <div class="col s1">IMO</div>
+        <div class="col s1">CHEGADA</div>
+        <div class="col s1">PORTO</div>
+    </div>
 
     </ul>
+
+</div>
 </div>
 
-</body>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script>
@@ -51,7 +58,7 @@ if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
      
       var coordenadas = `{"lat":${navio.LAT},"lng":${navio.LON},"imo":${navio.IMO}}`      
       listaNavio.setAttribute("id", coordenadas)
-      listaNavio.setAttribute("classe", "lihover")
+      listaNavio.setAttribute("class", "lihover")
 
             const spanNavioName = document.createElement('span')
               spanNavioName.setAttribute("id",coordenadas)
@@ -84,7 +91,7 @@ if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
                                             const spanNavioDescri = document.createElement('div')  
                                               spanNavioDescri.setAttribute("class","content")
               
-                                              spanNavioDescri.innerHTML = `<p> <h3>${navio.SHIPNAME} </h3> <b>IMO:</b> ${navio.IMO}<br> <b>Velocidade:</b> ${navio.AVG_SPEED}kn <br> <b>Destino:</b> ${navio.DESTINATION} <br> <b>Tipo:</b> ${navio.TYPE_NAME} <br> <b>Ano:</b> ${navio.YEAR_BUILT} <br> <b>Distancia: </b>${navio.DISTANCE_TO_GO}km <br> <b>LON: </b>${navio.LON} <br> <b>LAT: </b>${navio.LAT} </p> ` // navio tempo de chegada list    
+                                              spanNavioDescri.innerHTML = `<h5>${navio.SHIPNAME}</h5> <p> <b>IMO:</b> ${navio.IMO}<br> <b>Velocidade:</b> ${navio.AVG_SPEED}kn <br> <b>Destino:</b> ${navio.DESTINATION} <br> <b>Tipo:</b> ${navio.TYPE_NAME} <br> <b>Ano:</b> ${navio.YEAR_BUILT} <br> <b>Distancia: </b>${navio.DISTANCE_TO_GO}km <br> <b>LON: </b>${navio.LON} <br> <b>LAT: </b>${navio.LAT} </p> ` // navio tempo de chegada list    
                                               listaNavio.appendChild(spanNavioDescri )
        
       ulNavios.appendChild(listaNavio)  
@@ -112,5 +119,6 @@ console.log = function(value)
 
 </script>
 
+</body>
 </html>
 

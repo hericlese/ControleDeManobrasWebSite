@@ -15,7 +15,7 @@ if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
 </script>
 
 <script type="text/javascript">
-    let header = document.querySelector("header"); //fixar efeito barra de menu
+    let header = document.querySelector("nav"); //fixar efeito barra de menu
       header.classList.toggle("sticky",window.scrollY = 1);
   
   let coordenadast = JSON.parse(sessionStorage.getItem('localizacao'));
