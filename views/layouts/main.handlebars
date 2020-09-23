@@ -4,26 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Praticagem de Manaus</title> 
-   <link rel="stylesheet" href="/css/styles.css"> 
-   <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+    <link rel="stylesheet" href="/css/styles.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
     <script src="/js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-     <script src="https://cdnjs.cloudfare.com/ajax/libs/materialize/1.0.0/js/materialize.mim.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>    
+    <script>
+      $(document).ready(function(){
+        $('.modal').modal();
+      });
+
+    </script>
+   
   </head>
 
-
   <nav class="nav-wrapper stickynone">
-   <a href="/" class="logo">Praticagem de Manaus</a>
+   <a href="/" class="logo"> Praticagem de Manaus</a>
       <ul id="nav-mobile" class="right">
         <li id="hovermenu"><a href="/">Controle de Manobras</a></li>
         <li id="hovermenu"><a href="/mapageral">Mapa Geral</a></li>
         <li id="hovermenu"><a href="/team">Team</a></li>
-        <li id="hovermenu"><img href="/perfil" src="/img/perfil.png" alt="Login"><a id="perfilbtn" href="/perfil" >LOGIN</a></li>
+        <li id="hovermenu"><img href="/perfil" src="/img/perfil.png" alt="Login"><a id="perfilbtn" style="margin-top: 25px;" class="waves-effect waves-light btn modal-trigger" href="#modal1">LOGIN</a></li>
       </ul>
-    
-  </nav>
+  </nav> 
 
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+      <li id="limodalperfil">
+      <img href="/perfil" src="/img/perfil.png" style="width: 140px;" alt="User">
+      <p id="nomelogin" >Faça o Login </p>
+      <p id="emaillogin" > </p>
+      </li>
+    </div>
+    <div class="modal-footer">
+      <a href="/perfil" class="modal-close waves-effect waves-green btn modal-trigger">Editar Perfil</a>
+      <input  type="submit"  class="btn btn-info btn-md" name="submit" id="btnsair" value="Sair"></input>
+    </div>
+  </div>
 
+  
 
    <script type="text/javascript"> 
     window.addEventListener("scroll",function(){ // efeito rolamento da pagina
@@ -39,6 +59,8 @@
     let  auth = JSON.parse(sessionStorage.getItem('session'))
 
         name = JSON.stringify(auth.name);
+        email = JSON.stringify(auth.email);
+        id = JSON.stringify(auth.id);
 
     btnperfil = document.getElementById('perfilbtn')
 
@@ -46,16 +68,49 @@
     let primeironame = string.split(" ");
 
     document.getElementById("perfilbtn").innerHTML= `${primeironame[0]}`
-   
-    console.log(name)
+    document.getElementById("nomelogin").innerHTML= `${name}`
+    document.getElementById("emaillogin").innerHTML= `${email}`
   }
+
+   // Evento que é executado ao clicar no botão de enviar
+    document.getElementById('btnsair').onclick = function(e) {
+    e.preventDefault();
+
+    sessionStorage.clear();
+    window.location.replace("http://localhost:3002/");
+    };
+
    </script>
-  
-   
+    
     {{{body}}}
+   
+    <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h6 class="white-text">Footer Content</h6>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2020 Copyright Todos os direitos reservados a Pablo Tavares e Hericles Melo
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
     
-
-
-
     
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </html>
+
+

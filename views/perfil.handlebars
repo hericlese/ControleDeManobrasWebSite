@@ -1,9 +1,7 @@
-<body>
-<script type="text/javascript">
-    var header = document.querySelector("header"); //fixar efeito barra de menu
-      header.classList.toggle("sticky",window.scrollY = 1);
-  
+
+<script type="text/javascript">  
 //sessionStorage.clear
+
 
 if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
   window.location.replace("http://localhost:3002/login");
@@ -17,6 +15,8 @@ if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
      {{{body}}}
 
 </script>
+
+<body>
 <main>                                                                                                                     <!-- MAIN Area de conteudo principal do site-->                                                                                                                   <!-- MAIN Area de conteudo principal do site-->
         <div id="registrar" class="row justify-content-center align-items-center" >
             <div class="container-registrousuario">  
@@ -51,15 +51,27 @@ if(JSON.parse(sessionStorage.getItem('session')) == undefined ) {
         </div>
     </main>
 
-</body>
+
  
 <script>
+    
+  if(JSON.parse(sessionStorage.getItem('session')) != undefined ) {
+    let  auth = JSON.parse(sessionStorage.getItem('session'))
 
+        name = JSON.stringify(auth.name);
+        email = JSON.stringify(auth.email);
+        id = JSON.stringify(auth.id);
+
+    let emailnovo = document.getElementById('email');
+    emailnovo.setAttribute("value", `${email}`);
+    emailnovo.setAttribute("readonly", "true");
+    
+    console.log(` teste ${email}`);
+
+  }
 </script>
 
-</html>
-
-
+</body>
 
 </html>
 

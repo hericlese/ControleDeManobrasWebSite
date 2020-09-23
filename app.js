@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const e = require('express');
+const { query } = require('express');
 
 const app = express();
 const port = 3002;
@@ -165,12 +166,14 @@ app.post('/cadastrar/',(req,res,next)=>{
                         con.on('error',function(err){
                             console.log('[MySQL ERROR',err);
 
+                          
                             res.render('home');
                             //res.json('Erro ao Registrar:',err );
                             
                         });
 
                         res.json('Registrado com sucesso!');
+                        console.log(`Tony essa é a informação entrando no banco de dados${name}/ ${email}/${password}`)
                     })   
                 }
                 });
@@ -206,7 +209,7 @@ app.post('/loginauth/',(req,res,next)=>{
 
                
                 console.log(JSON.stringify(result,['id','name','email']))
-                res.end(JSON.stringify(result,['id','name','email']));
+                res.end(JSON.stringify(result,['id','name','email','created_at']));
               
                // res.render('home');
                // res.end(JSON.stringify(result[0]),console.log(`Usuario logou ${email}`),) // se senha for verdadeira , retorna todos informações do usuario

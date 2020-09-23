@@ -4,13 +4,12 @@
 
 nav{     
     position: fixed;
-    font-family:'Poppins', sans-serif; 
-    text-align: center;
+    font-family:'Poppins', sans-serif;
     top: 0;
     left: 0;   
     z-index: 100000;
     background-color: #000;
-    
+ 
     
 }
 
@@ -18,10 +17,12 @@ nav{
 nav.stickynone{
     background: transparent;
     height: 85px;
-}
+    font-size: 30px;
+}   
 
 nav.sticky{
         background: #fff;
+
 }
 
 
@@ -36,11 +37,11 @@ nav .logo{
     font-weight: 650;
     color: #fff;
     text-decoration: none;
-    font-size: 1.8em;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: 0.6s;
     text-align: left;
+  
    
 }
 
@@ -80,7 +81,7 @@ nav ul li img{
     align-items: flex-end;
     justify-content: flex-end;
     width: 60px;
-    height: 70px;
+    height: 60px;
     margin-top: 2px;
     margin-right: -25px;
     color: #000;
@@ -88,6 +89,13 @@ nav ul li img{
 }
 
 
+#nomelogin , #emaillogin{
+    color:#4A7995;  
+    margin-left: 200px;
+    margin-top: -80px;
+    font-size: 20px;
+    font-weight: bolder;
+}
 
 
 nav ul #hovermenu:hover {
@@ -100,6 +108,8 @@ nav ul #hovermenu:hover {
 }
 
 
+/*----------------------------------------------------------------------------FIM DA NAV BAR------------------------------------------------------------------------------------*/
+
 
 
 body{      
@@ -111,6 +121,10 @@ body{
     background-image: url("/img/imgSite.png");
     background-size: 100% 100%;
     font-family:'Poppins', sans-serif; 
+    height: 100%;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
     
 }
 
@@ -133,6 +147,7 @@ div #banner{
     font-size: 13px;
     margin-top: 100px;
     height: 100%;
+    margin-bottom: 100px;
   
 }
 
@@ -144,7 +159,7 @@ div #banner{
     margin:2px 0;
     transition: 0.5s;
     cursor: pointer; 
-    margin-left:1%;
+   
     
 }
 
@@ -162,11 +177,12 @@ div ul li .content{
     opacity: 0;
     transition: 0.6s;
     transform: translateX(-100%) translateY(-70px);
-     font-family:'Open Sans', sans-serif;  
+    font-family:'Open Sans', sans-serif;  
     color:black;
     text-align: center;
     border-left: 10px solid #4A7995;
     cursor: none;  
+    
 }
 
 div ul li:hover .content{
@@ -183,13 +199,10 @@ div #tab{
     padding: 12px ;
     color: #fff;
     margin:5px 0;
-    width: 99%;
-    margin-left: 6px;
+    width: 100%;
     font-weight: bolder;
     font-family:'Poppins', sans-serif; 
-    height: 50px;
-    
-    
+    height: 50px; 
 }
 
 div .row .col.s1 {
@@ -232,6 +245,7 @@ div ul li span:nth-child(1)
 div ul li span:nth-child(2)
 {
     width: 70%;
+    
 }
 
 div ul li span:nth-child(3)
@@ -257,7 +271,6 @@ body.home #h2home{
    
     position: relative;
     font-family:'Open Sans', sans-serif;
-    top: 15%;
     left: 50%;
     transform: translate(-50%);
     width: 100%;
@@ -267,13 +280,14 @@ body.home #h2home{
     text-align: center;
     color: #fff;
     box-sizing: border-box;
+    margin-top: 100px;
+    
 }
 
 body.home #h1home{
    
     position: relative;
     font-family:'Open Sans', sans-serif;
-    top: 25%;
     left: 50%;
     transform: translate(-50%);
     width: 100%;
@@ -283,6 +297,7 @@ body.home #h1home{
     color: #fff;
     box-sizing: border-box;
     font-size: 300%;
+    margin-bottom: -60px;
 
 }
 
@@ -293,44 +308,70 @@ body.home #h1home{
 /*----------------------------------------------------------------------------login------------------------------------------------------------------------------------*/
 
 
-  #login-form {
+body.home #h1login{
+    margin-top: 130px;
     position: relative;
-    margin-top: 150px;
-    top: 23%;
+    font-family:'Open Sans', sans-serif;
+    top: 50%;
     left: 50%;
     transform: translate(-50%);
-    width: 40%;
-    height: 50%;
-    border-radius: 2%;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #fff;
+    box-sizing: border-box;
+    font-size: 300%;
+    
+
+}
+
+#listlogin{
+    width: 700px;
+    padding: 5px;
     box-sizing: border-box;
     background: rgba(2, 5, 24, 0.4);
     box-shadow: inset 0 0 15px rgba(0,0,0,.2);
-    color: #fff;
-  }
-
-  #login-form {
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 200px;
     padding: 20px;
-    text-align: center;
     
-  }
+}
 
-  #login .container #login-row #login-column #login-box #login-form .form-control {
-   margin-bottom: 5%;
-   width: 70%;
+#login-box{
+    
+  text-align: center;
+  margin-top: 30px;
+  
+}
 
-  }
 
+#login-box .form-group{
+    font-size: 32px;
+    margin-top: 30px;
+}
+  /*----------------------------------------MAPS-----------------------------*/
+    
+    
+    #map {      
+    
+            position: fixed !important;
+            height: 100% !important;
+            width: 100% !important;
+            margin-top: 85px;
+            
+        }
+    
 
-  #login .container #login-row #login-column #login-box #login-form #register-link a{
-   text-align: end;
-   color: #ffff;
-  }
-
+     #titulomap{
+      margin-bottom: -15px;
+      text-align: center;
+    }
 
   /*----------------------------------------------------------------------------Registrar------------------------------------------------------------------------------------*/
 
   #registrar {
-
     
     color: #fff;
     width: 700px;
@@ -342,15 +383,9 @@ body.home #h1home{
     border-radius: 5px;
     overflow: hidden;
     font-size: 13px;
-    margin-top: 100px;
-    height: 100%;
-  
-
-  }
-
-  #registrar h2{
     text-align: center;
-    margin-top: -3%;
+    height: 100%;
+
   }
 
    #registrar-form {
@@ -359,11 +394,16 @@ body.home #h1home{
    }
    
    #registrar-form div{
-        margin-bottom: 2%;
-
+    margin-bottom: 2%;
+        
    }
 
-   #registrar-form .form-control{
-    width: 100%;
+  /*---------------------------------------------------- footer------------------------------------------------------------*/
 
-}
+
+footer{
+    width: 100% !important;
+    background-color: 	#172e42 !important;
+    
+   }
+  

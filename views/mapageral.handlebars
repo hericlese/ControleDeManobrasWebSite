@@ -78,34 +78,29 @@ var infowindow = new google.maps.InfoWindow({
 
 });
 
-infowindow.open(map,marker);
-
 }
 
 </script>
+<body class="home">
+  <main>
 
-<body>  
-  
-	<div id="map"></div>
+	<div id="map" ></div>
 
-</body> 
+</main>
 
-	<style> 
-		#map {      
-    position: absolute;
-		height: 100% !important;;
-		width: 100% !important;;
-    }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
-    }
-     #titulomap{
-      margin-bottom: -15px;
-      text-align: center;
-    }
-	</style>
-  
+ <script>
+     
+    document.getElementById("map").style["position"] = "absolute";
+</script> 
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjRopAliYHfukxfnfe9bQmG-D_ero4RoE&callback=iniciarMap"></script>    
  
-  
+</body>
 </html>

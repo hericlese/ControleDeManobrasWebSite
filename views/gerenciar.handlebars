@@ -1,25 +1,28 @@
 
+
 <body class="home">
+ 
 <div  class="container">
-  
-  <div class="linha">
-    <h1 id="h2home">Usuarios</h1>
+
+  <div class="row" id="">
+     <h1 id="h2home">Usuarios</h1>
 </div>
 
 <div id="list" class="row">
+
     <ul id="usuariolist">
+      
 
     <div id="tab" >
         <div class="col s1">NOME</div>
-        <div class="col s1">EMAIL</div>
+        <div class="col s1" style="left: ;">EMAIL</div>
     </div>
 
     </ul>
-</div>
-
 
 </div>
-</body>
+</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script>
@@ -34,16 +37,18 @@
      
       var descricaousuario = `{"id":"${usuario.id}","name":"${usuario.name}","email":"${usuario.email}"}`    
       listaUsuario.setAttribute("id", descricaousuario)
-      listaUsuario.setAttribute("classe", "lihover")
+      listaUsuario.setAttribute("class", "lihover")
 
             const spanUserName = document.createElement('span')
               spanUserName.setAttribute("id",descricaousuario)
+              spanUserName.setAttribute("classe","classalter")
               spanUserName.setAttribute("onclick","location.href = 'http://localhost:3002/gerenciar/alterar';")
               spanUserName.innerHTML = `${usuario.name}`  
                       listaUsuario.appendChild(spanUserName)
                         
                             const spanUsuarioEmail = document.createElement('span')  
                               spanUsuarioEmail.setAttribute("id",descricaousuario)
+                              spanUsuarioEmail.setAttribute("classe","classalter")
                               spanUsuarioEmail.setAttribute("onclick","location.href = 'http://localhost:3002/gerenciar/alterar';")
                               spanUsuarioEmail.innerHTML = `${usuario.email}`         
                               listaUsuario.appendChild(spanUsuarioEmail)
@@ -73,7 +78,7 @@ console.log = function(value)
 };
 
 </script>
-
+</body>
 
 </html>
 
